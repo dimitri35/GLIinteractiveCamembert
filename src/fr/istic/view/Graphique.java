@@ -154,6 +154,7 @@ public class Graphique extends JComponent implements IGraphique {
 		int centreX = tailleArc/2+xCentre ;
 		int centreY = tailleArc/2+yCentre ;
 		
+		//Calcul des coordonnées des rectangles à afficher
 		float ratio = (float) (tailleArc+tailleLigneIntitule)/(float) tailleArc ;
 		double debutRadian = debut/180.0*Math.PI ;
 		int x = (int) (Math.cos(debutRadian)*ratio*tailleArc/2) ;
@@ -161,10 +162,12 @@ public class Graphique extends JComponent implements IGraphique {
 		
 		((Graphics2D) g).fill(monArc);	
 		
+		//calcul des cosinus et sinus des angles
 		int hauteurRect = 25, longueurRect = 150 ;
 		double cos = Math.cos(debutRadian) ;
 		double sin = Math.sin(debutRadian) ;
 		
+		//On change le coté du rectangle en fonction de l'angle
 		if(sin>0)
 			y-=hauteurRect-5 ;
 
@@ -206,21 +209,12 @@ public class Graphique extends JComponent implements IGraphique {
 		Graphics2D g2d = (Graphics2D) g ;
 		
 		//Affichage de l'intitulé 
-		//Rectangle2D.Double rectangleIntitule = new Rectangle2D.Double(100,20,largeurRectangle,hauteurRectangle) ;
-		//g.drawRect(100,20,largeurRectangle,hauteurRectangle); 
-		//g2d.draw(rectangleIntitule);
 		g.drawString(unChamp.getIntitule(),100+10,20+hauteurRectangle);
 		
 		//Affichage de la description
-		//Rectangle2D.Double rectangleDescription = new Rectangle2D.Double(400,20,largeurRectangle,hauteurRectangle) ;
-		//g.drawRect(400,20,largeurRectangle,hauteurRectangle);
-		//g2d.draw(rectangleDescription);
 		g.drawString(unChamp.getDescription(),400+10,20+hauteurRectangle);
 		
 		//Affichage de la valeur
-		//Rectangle2D.Double rectangleValeur = new Rectangle2D.Double(700,20,largeurRectangle,hauteurRectangle) ;
-		//g.drawRect(700,20,largeurRectangle,hauteurRectangle);
-		//g2d.draw(rectangleValeur);
 		g.drawString("Valeur:"+unChamp.getValeur(),700+10,20+hauteurRectangle);
 	}
 	
@@ -386,6 +380,7 @@ public class Graphique extends JComponent implements IGraphique {
 			obtenirArcClic(x,y);
 		}
 		
+		//Si on a modifié un champ on éxécute la commande pour changer le champ
 		if(modif)
 		{
 			commandeModification.execute();
@@ -395,25 +390,21 @@ public class Graphique extends JComponent implements IGraphique {
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 	
@@ -447,6 +438,7 @@ public class Graphique extends JComponent implements IGraphique {
 	
 	public void debutAngle(double debut)
 	{
+		//modification de l'angle de début du camembert
 		debutCamembertAngle += debut ;
 		reInit() ;
 		repaint() ;
@@ -454,9 +446,11 @@ public class Graphique extends JComponent implements IGraphique {
 	
 	private void reInit()
 	{
+		//Remise à zéro de la liste des arcs 
 		listeArc = new HashMap<Champ,Arc2D.Double>() ;
 		tableauArc = new ArrayList<Arc2D.Double>() ;
 		indiceElement = -1 ;
+		//Remise à zéro des champs sélectionné et des champs modifié
 		champSelectionne = null ;
 		champModifie = null ;
 	}
